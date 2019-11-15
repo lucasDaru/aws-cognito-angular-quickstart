@@ -7,6 +7,8 @@ import {Router} from "@angular/router";
 export class Stuff {
     public accessToken: string;
     public idToken: string;
+    public refreshToken: string;
+    public tokenType: string;
 }
 
 @Component({
@@ -29,6 +31,8 @@ export class JwtComponent implements LoggedInCallback {
         } else {
             this.cognitoUtil.getAccessToken(new AccessTokenCallback(this));
             this.cognitoUtil.getIdToken(new IdTokenCallback(this));
+            this.cognitoUtil.getRefreshToken(new RefreshTokenCallback(this));
+            this.cognitoUtil.getTokenType(new TokenTypeCallback(this));
         }
     }
 }
@@ -58,5 +62,33 @@ export class IdTokenCallback implements Callback {
 
     callbackWithParam(result) {
         this.jwt.stuff.idToken = result;
+    }
+}
+
+export class TokenTypeCallback implements Callback {
+    constructor(public jwt: JwtComponent) {
+
+    }
+
+    callback() {
+
+    }
+
+    callbackWithParam(result) {
+        this.jwt.stuff.tokenType = result;
+    }
+}
+
+export class RefreshTokenCallback implements Callback {
+    constructor(public jwt: JwtComponent) {
+
+    }
+
+    callback() {
+
+    }
+
+    callbackWithParam(result) {
+        this.jwt.stuff.refreshToken = result;
     }
 }

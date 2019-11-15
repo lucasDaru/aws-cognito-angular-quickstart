@@ -166,6 +166,27 @@ export class CognitoUtil {
             callback.callbackWithParam(null);
     }
 
+    getTokenType(callback: Callback): void {
+        if (callback == null) {
+            throw("CognitoUtil: callback in getTokenType is null...returning");
+        }
+        if (this.getCurrentUser() != null)
+            this.getCurrentUser().getSession(function (err, session) {
+                if (err) {
+                    console.log("CognitoUtil: Can't set the credentials:" + err);
+                    callback.callbackWithParam(null);
+                }
+
+                else {
+                    if (session.isValid()) {
+                        callback.callbackWithParam(session.getTokenType());
+                    }
+                }
+            });
+        else
+            callback.callbackWithParam(null);
+    }
+
     refresh(): void {
         this.getCurrentUser().getSession(function (err, session) {
             if (err) {

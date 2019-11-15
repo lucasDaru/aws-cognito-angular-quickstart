@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-aws_cmd=${aws_cmd:-aws}
+aws_cmd=${aws_cmd:-aws2}
 
 # Bucket name must be all lowercase, and start/end with lowecase letter or number
 # $(echo...) code to work with versions of bash older than 4.0
